@@ -21,10 +21,10 @@ This project is an bitcoin traders application built with AngularJS that allows 
    - The application will open in your default web browser
 
 ## Features
-1. search Traders
-2. sort Traders by experience and speciality
-3. toggle visibility of Traders
-4. calculate salary after increment
+1. Search Traders
+2. Sort Traders by experience and speciality
+3. Toggle visibility of Traders
+4. Calculate salary after increment
 
 
 ## Project Structure
