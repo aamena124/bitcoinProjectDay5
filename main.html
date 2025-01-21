@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Project</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        #Timg {
+            border-radius: 50%;
+        }
+        div {
+            border: 2px solid #807878;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition-duration: 0.4s;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #4CAF50;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px 0 #4CAF50;
+        }
+    </style>
+ </head>
+
+ <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.Traders = [
+            {name: 'Omar', experience: 5, speciality: 'Trading'},
+            {name: 'Ali', experience: 10, speciality: 'Investing'},
+            {name: 'Ahmed', experience: 8, speciality: 'Market Analysis'},
+            {name: 'Hamad', experience: 12, speciality: 'Risk Management'},
+            {name: 'Humaid', experience: 3, speciality: 'Cryptocurrency'}
+        ];
+
+        $scope.isVisible = true;
+            $scope.toggleVisibility = function() {
+                $scope.isVisible = !$scope.isVisible;
+            };
+        $scope.search ="";
+        $scope.sortKey = 'name'; // Default sort by 'name'
+        $scope.reverseSort = true;
+        $scope.name="";
+        $scope.salary=0;
+        $scope.rev=false;
+        $scope.calculateSalary = function() {
+            $scope.incremnt = $scope.salary * 1.1;
+            $scope.rev=true;
+        };
+         
+    }); 
+    </script>
+<div>
+<body ng-controller="myCtrl">
+     
+    <header>
+        <h1>Bitcoin Traders Plarform</h1>
+    </header>
+    <input type="text" ng-model="search" placeholder="Search traders..">
+    <button ng-click="sortKey = 'experience'; sortReverse = !sortReverse">Sort by Experience</button>
+    <button ng-click="sortKey = 'speciality'; sortReverse = !sortReverse">Sort by Speciality</button><br>
+    <button ng-click="toggleVisibility()">Hide Traders</button>
+    <div  ng-show="isVisible" ng-repeat="Trader in Traders | filter:search | orderBy:sortKey:reverseSort ">
+        <table>
+            <tr>
+                <td>
+                    <img id="Timg" ng-src="Image/{{Trader.name}}.jpg" width="100" height="100">
+                </td>
+                <td>
+                    <pre>
+                    <b>{{Trader.name}}</b>
+                    {{Trader.experience}} years
+                    {{Trader.speciality}}
+                    </pre>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+<div>
+    <h2>Salary Calculaor (with 10% increment)</h2>
+    
+        <label for="name">Name:</label>
+        <input type="text" id="name" ng-model="name" placeholder="Enter your name">
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" ng-model="salary" placeholder="Enter your salary">
+        <button ng-click="calculateSalary()">Calculate</button>
+
+        <p ng-show="rev" ><b>{{name}}</b>,
+            your salary is {{salary | currency}}
+            your new salary with a 10% increment is: {{incremnt | currency}}</p>
+</div>
+
+    
+    
+</body>
+</div>
+</html>
